@@ -1,37 +1,64 @@
+import { useContext } from "react";
 import { useNavigate } from "react-router-dom";
+import { AuthContext } from "./AuthContext";
 
 function PostDetail({ post }) {
   const navigate = useNavigate();
+  const { user } = useContext(AuthContext);
+
+  const isOwner = user && post.owner?._id === user._id;
 
   return (
-    <div className="max-w-2xl mx-auto p-6 bg-white border border-gray-300 rounded-2xl shadow-sm">
-      <h1 className="text-2xl font-bold text-gray-800 mb-2">{post.service}</h1>
+    <div className="max-w-3xl mx-auto p-6 bg-white rounded-2xl shadow-sm border border-gray-200">
+      <h1 className="text-3xl font-bold text-gray-800 mb-4">
+        {post.service}
+      </h1>
 
-      <p className="text-sm text-gray-600 mb-4">
-        Publicado por <span className="font-medium">{post.owner?.userName || "Anónimo"}</span>
-      </p>
+      <div className="text-sm text-gray-500 mb-4">
+        Publicado por{" "}
+        <span className="font-semibold text-gray-800">
+          {post.owner?.userName || "Desconocido"}
+        </span>
+      </div>
 
-      <p className="text-gray-800 mb-6">{post.description}</p>
+      <p className="text-gray-700 text-lg mb-6">{post.description}</p>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-sm text-gray-700 mb-6">
-        <p><span className="font-medium">Ubicación:</span> {post.location}</p>
-        <p><span className="font-medium">Categoría:</span> {post.category}</p>
-        <p><span className="font-medium">Correo:</span> {post.email || "No especificado"}</p>
-        <p><span className="font-medium">Teléfono:</span> {post.phone || "No especificado"}</p>
-        {post.price && <p><span className="font-medium">Precio:</span> €{post.price}</p>}
+      <hr className="my-6 border-gray-200" />
+
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-6">
+        <p className="text-gray-600">
+          <strong>Correo:</strong> {post.email || "No disponible"}
+        </p>
+        <p className="text-gray-600">
+          <strong>Teléfono:</strong> {post.phone || "No disponible"}
+        </p>
+        <p className="text-gray-600">
+          <strong>Ubicación:</strong> {post.location}
+        </p>
+        <p className="text-gray-600">
+          <strong>Precio:</strong> €{post.price || "No indicado"}
+        </p>
       </div>
 
       <hr className="my-6 border-gray-200" />
 
       <div className="flex justify-between items-center mt-6">
-        <button
-          className="text-blue-600 hover:underline text-sm"
-          onClick={() => navigate(`/posts/${post._id}/edit`)}
-        >
-          Editar Post
-        </button>
-        <p className="text-xs text-gray-400">
-          <span className="font-medium">Post ID:</span> {post._id}
+        {isOwner ? (
+          <button
+            className="text-blue-600 hover:underline transition"
+            onClick={() => navigate(`/posts/${post._id}/edit`)}
+          >
+            Editar Post
+          </button>
+        ) : (
+          <button className="text-gray-500 hover:text-black transition">
+            Guardar
+          </button>
+        )}
+
+        <p className="text-sm text-gray-400">
+          <span className="font-medium text-gray-500">Post ID:</span>{" "}
+          {post._id}
         </p>
       </div>
     </div>
