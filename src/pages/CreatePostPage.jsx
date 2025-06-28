@@ -61,27 +61,28 @@ function CreatePostPage() {
     }
   };
 
-  // ⛔ If the user is not logged in, redirect to login
   if (!isLoading && !isLoggedIn) return <Navigate to="/login" />;
 
   return (
-    <div>
-      <div className="mb-6 flex items-center justify-between">
-        <h1 className="text-2xl font-bold">Publicar un nuevo post</h1>
+    <div className="PostList space-y-4 max-w-2xl mx-auto">
+      <div className="flex items-center justify-between mb-4">
+        <h1 className="text-xl font-bold">Publicar un nuevo post</h1>
         <button
           onClick={() => navigate("/")}
           className="w-10 h-10 bg-gray-200 rounded-full flex items-center justify-center text-xl hover:bg-gray-300"
           title="Cancelar publicación"
         >
-          &#x00D7;
+          &times;
         </button>
       </div>
 
-      <PostForm
-        formData={formData}
-        onChange={handleChange}
-        onSubmit={handleSubmit}
-      />
+      <div className="border p-6 rounded-lg shadow-sm bg-white">
+        <PostForm
+          formData={formData}
+          onChange={handleChange}
+          onSubmit={handleSubmit}
+        />
+      </div>
     </div>
   );
 }
