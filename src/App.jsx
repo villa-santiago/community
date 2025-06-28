@@ -1,22 +1,19 @@
 import "./App.css";
 import { Routes, Route } from "react-router-dom";
-import PingTest from "./components/PingTest";
 import HomePage from "./pages/HomePage";
-import TestAuth from "./components/TestAuth";
 import LoginPage from "./pages/LoginPage";
 import SignupPage from "./pages/SignupPage";
+import CreatePostPage from "./pages/CreatePostPage";
 
 function App() {
   return (
-    <div className="App">
-      <Routes>
-        <Route path="/" element={<HomePage />} />
-        <Route path="/login" element={<LoginPage />} />
-        <Route path="/signup" element={<SignupPage />} />
-      </Routes>
-    </div>
+    <Routes>
+      <Route path="/" element={<HomePage />} />
+      <Route path="/login" element={<LoginPage />} />
+      <Route path="/signup" element={<SignupPage />} />
+      <Route path="/create-post" element={<CreatePostPage />} />
+    </Routes>
   );
 }
-
 
 export default App;
