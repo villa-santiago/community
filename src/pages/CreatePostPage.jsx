@@ -10,12 +10,12 @@ function CreatePostPage() {
   const { isLoggedIn, user, isLoading } = useContext(AuthContext);
 
   const [formData, setFormData] = useState({
-    title: "",
+    service: "",
     category: "",
     location: "",
     description: "",
     price: "",
-    contact: "",
+    email: "",
     phone: "",
   });
 
@@ -30,7 +30,7 @@ function CreatePostPage() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (!formData.title || !formData.description || !formData.location) {
+    if (!formData.service || !formData.description || !formData.location) {
       alert("Por favor completa los campos obligatorios");
       return;
     }

@@ -52,40 +52,47 @@ function PostForm({
             onChange={onChange}
             className="w-full p-2 border border-gray-300 rounded"
           >
-            <option value="Paris 1 - Louvre">Paris 1 - Louvre</option>
-            <option value="Paris 2 - Bourse">Paris 2 - Bourse</option>
-            <option value="Paris 3 - Temple">Paris 3 - Temple</option>
-            <option value="Paris 4 - Hôtel-de-Ville">Paris 4 - Hôtel-de-Ville</option>
-            <option value="Paris 5 - Panthéon">Paris 5 - Panthéon</option>
-            <option value="Paris 6 - Luxembourg">Paris 6 - Luxembourg</option>
-            <option value="Paris 7 - Palais-Bourbon">Paris 7 - Palais-Bourbon</option>
-            <option value="Paris 8 - Élysée">Paris 8 - Élysée</option>
-            <option value="Paris 9 - Opéra">Paris 9 - Opéra</option>
-            <option value="Paris 10 - Entrepôt">Paris 10 - Entrepôt</option>
-            <option value="Paris 11 - Popincourt">Paris 11 - Popincourt</option>
-            <option value="Paris 12 - Reuilly">Paris 12 - Reuilly</option>
-            <option value="Paris 13 - Gobelins">Paris 13 - Gobelins</option>
-            <option value="Paris 14 - Observatoire">Paris 14 - Observatoire</option>
-            <option value="Paris 15 - Vaugirard">Paris 15 - Vaugirard</option>
-            <option value="Paris 16 - Passy">Paris 16 - Passy</option>
-            <option value="Paris 17 - Batignolles-Monceaux">Paris 17 - Batignolles-Monceaux</option>
-            <option value="Paris 18 - Buttes-Montmartre">Paris 18 - Buttes-Montmartre</option>
-            <option value="Paris 19 - Buttes-Chaumont">Paris 19 - Buttes-Chaumont</option>
-            <option value="Paris 20 - Ménilmontant">Paris 20 - Ménilmontant</option>
-            <option value="Fuera de París">Fuera de París</option>
+            <option value="">Selecciona una ubicación</option>
+            <option value="paris 1">Paris 1 - Louvre</option>
+            <option value="paris 2">Paris 2 - Bourse</option>
+            <option value="paris 3">Paris 3 - Temple</option>
+            <option value="paris 4">Paris 4 - Hôtel-de-Ville</option>
+            <option value="paris 5">Paris 5 - Panthéon</option>
+            <option value="paris 6">Paris 6 - Luxembourg</option>
+            <option value="paris 7">Paris 7 - Palais-Bourbon</option>
+            <option value="paris 8">Paris 8 - Élysée</option>
+            <option value="paris 9">Paris 9 - Opéra</option>
+            <option value="paris 10">Paris 10 - Entrepôt</option>
+            <option value="paris 11">Paris 11 - Popincourt</option>
+            <option value="paris 12">Paris 12 - Reuilly</option>
+            <option value="paris 13">Paris 13 - Gobelins</option>
+            <option value="paris 14">Paris 14 - Observatoire</option>
+            <option value="paris 15">Paris 15 - Vaugirard</option>
+            <option value="paris 16">Paris 16 - Passy</option>
+            <option value="paris 17">Paris 17 - Batignolles-Monceaux</option>
+            <option value="paris 18">Paris 18 - Buttes-Montmartre</option>
+            <option value="paris 19">Paris 19 - Buttes-Chaumont</option>
+            <option value="paris 20">Paris 20 - Ménilmontant</option>
+            <option value="Fuera de Paris">Fuera de París</option>
           </select>
         </label>
       </div>
 
       <div>
-        <label className="block font-medium mb-1">Categoría</label>
-        <input
-          type="text"
+        <label className="block font-medium mb-1">Categoría*</label>
+        <select
           name="category"
           value={formData.category}
           onChange={onChange}
           className="w-full bg-gray-200 p-2 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
-        />
+          required
+        >
+          <option value="">Selecciona una categoría</option>
+          <option value="Servicios">Servicios</option>
+          <option value="Productos">Productos</option>
+          <option value="Eventos">Eventos</option>
+          <option value="Informacion">Información</option>
+        </select>
       </div>
 
       <div>
@@ -104,8 +111,8 @@ function PostForm({
         <label className="block font-medium mb-1">Correo electrónico</label>
         <input
           type="email"
-          name="contact"
-          value={formData.contact}
+          name="email"
+          value={formData.email}
           onChange={onChange}
           className="w-full bg-gray-200 p-2 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
         />
