@@ -1,12 +1,46 @@
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "./AuthContext";
 
 function PostDetail({ post }) {
   const navigate = useNavigate();
-  const { user } = useContext(AuthContext);
+  const { user, authenticateUser } = useContext(AuthContext);
+  const [isSaving, setIsSaving] = useState(false);
 
   const isOwner = user && post.owner?._id === user._id;
+  const isSaved = user?.savedPosts?.includes(post._id);
+
+const handleSaveToggle = async () => {
+  if (!user || !post._id) return;
+
+  const token = localStorage.getItem("authToken");
+  if (!token) return;
+
+  const method = isSaved ? "DELETE" : "POST";
+  const endpoint = `${import.meta.env.VITE_API_URL}/users/saved-posts/${post._id}`;
+  console.log("Save endpoint:", endpoint);
+
+  setIsSaving(true);
+
+  try {
+    const res = await fetch(endpoint, {
+      method,
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+    if (!res.ok) throw new Error("Failed to update saved post");
+
+    await authenticateUser(); // refresh savedPosts
+  } catch (err) {
+    console.error("Save toggle failed:", err);
+    alert("Error al guardar/guardar post");
+  } finally {
+    setIsSaving(false);
+  }
+};
+
 
   return (
     <div className="max-w-3xl mx-auto p-6 bg-white rounded-2xl shadow-sm border border-gray-200">
@@ -51,8 +85,16 @@ function PostDetail({ post }) {
             Editar Post
           </button>
         ) : (
-          <button className="text-gray-500 hover:text-black transition">
-            Guardar
+          <button
+            onClick={handleSaveToggle}
+            disabled={isSaving}
+            className={`${
+              isSaved
+                ? "text-green-600 hover:text-green-800"
+                : "text-gray-500 hover:text-black"
+            } transition`}
+          >
+            {isSaved ? "Guardado" : "Guardar"}
           </button>
         )}
 
