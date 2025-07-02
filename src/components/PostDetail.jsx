@@ -4,43 +4,41 @@ import { AuthContext } from "./AuthContext";
 
 function PostDetail({ post }) {
   const navigate = useNavigate();
-  const { user, authenticateUser } = useContext(AuthContext);
+  const { user, isLoggedIn, authenticateUser } = useContext(AuthContext);
   const [isSaving, setIsSaving] = useState(false);
 
-  const isOwner = user && post.owner?._id === user._id;
-  const isSaved = user?.savedPosts?.includes(post._id);
+  const isOwner = isLoggedIn && user?._id === post.owner?._id;
+  const isSaved = isLoggedIn && user?.savedPosts?.includes(post._id);
 
-const handleSaveToggle = async () => {
-  if (!user || !post._id) return;
+  const handleSaveToggle = async () => {
+    if (!user || !post._id) return;
 
-  const token = localStorage.getItem("authToken");
-  if (!token) return;
+    const token = localStorage.getItem("authToken");
+    if (!token) return;
 
-  const method = isSaved ? "DELETE" : "POST";
-  const endpoint = `${import.meta.env.VITE_API_URL}/users/saved-posts/${post._id}`;
-  console.log("Save endpoint:", endpoint);
+    const method = isSaved ? "DELETE" : "POST";
+    const endpoint = `${import.meta.env.VITE_API_URL}/users/saved-posts/${post._id}`;
 
-  setIsSaving(true);
+    setIsSaving(true);
 
-  try {
-    const res = await fetch(endpoint, {
-      method,
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    });
+    try {
+      const res = await fetch(endpoint, {
+        method,
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
 
-    if (!res.ok) throw new Error("Failed to update saved post");
+      if (!res.ok) throw new Error("Failed to update saved post");
 
-    await authenticateUser(); // refresh savedPosts
-  } catch (err) {
-    console.error("Save toggle failed:", err);
-    alert("Error al guardar/guardar post");
-  } finally {
-    setIsSaving(false);
-  }
-};
-
+      await authenticateUser(); // Refresh context
+    } catch (err) {
+      console.error("Save toggle failed:", err);
+      alert("Error al guardar o eliminar el post");
+    } finally {
+      setIsSaving(false);
+    }
+  };
 
   return (
     <div className="max-w-3xl mx-auto p-6 bg-white rounded-2xl shadow-sm border border-gray-200">
@@ -76,33 +74,35 @@ const handleSaveToggle = async () => {
 
       <hr className="my-6 border-gray-200" />
 
-      <div className="flex justify-between items-center mt-6">
-        {isOwner ? (
-          <button
-            className="text-blue-600 hover:underline transition"
-            onClick={() => navigate(`/posts/${post._id}/edit`)}
-          >
-            Editar Post
-          </button>
-        ) : (
-          <button
-            onClick={handleSaveToggle}
-            disabled={isSaving}
-            className={`${
-              isSaved
-                ? "text-green-600 hover:text-green-800"
-                : "text-gray-500 hover:text-black"
-            } transition`}
-          >
-            {isSaved ? "Guardado" : "Guardar"}
-          </button>
-        )}
+      {isLoggedIn && (
+        <div className="flex justify-between items-center mt-6">
+          {isOwner ? (
+            <button
+              className="text-blue-600 hover:underline transition"
+              onClick={() => navigate(`/posts/${post._id}/edit`)}
+            >
+              Editar Post
+            </button>
+          ) : (
+            <button
+              onClick={handleSaveToggle}
+              disabled={isSaving}
+              className={`${
+                isSaved
+                  ? "text-green-600 hover:text-green-800"
+                  : "text-gray-500 hover:text-black"
+              } transition`}
+            >
+              {isSaved ? "Remove from saved posts" : "Guardar"}
+            </button>
+          )}
 
-        <p className="text-sm text-gray-400">
-          <span className="font-medium text-gray-500">Post ID:</span>{" "}
-          {post._id}
-        </p>
-      </div>
+          <p className="text-sm text-gray-400">
+            <span className="font-medium text-gray-500">Post ID:</span>{" "}
+            {post._id}
+          </p>
+        </div>
+      )}
     </div>
   );
 }
