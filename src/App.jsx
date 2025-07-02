@@ -6,9 +6,13 @@ import SignupPage from "./pages/SignupPage";
 import CreatePostPage from "./pages/CreatePostPage";
 import EditPostPage from "./pages/EditPostPage";
 import PostDetailPage from "./pages/PostDetailPage";
+import ProfilePage from "./pages/ProfilePage";
+import Navbar from "./components/NavBar";
 
 function App() {
   return (
+    <>
+    <Navbar/>
     <Routes>
       <Route path="/" element={<HomePage />} />
       <Route path="/login" element={<LoginPage />} />
@@ -16,8 +20,10 @@ function App() {
       <Route path="/create-post" element={<CreatePostPage />} />
       <Route path="/posts/:id/edit" element={<EditPostPage />} />
       <Route path="/posts/:id" element={<PostDetailPage />} /> 
+      <Route path="/profile" element={<ProfilePage />} />
       
     </Routes>
+    </>
   );
 }
 
