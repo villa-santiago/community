@@ -7,6 +7,7 @@ import CreatePostPage from "./pages/CreatePostPage";
 import EditPostPage from "./pages/EditPostPage";
 import PostDetailPage from "./pages/PostDetailPage";
 import ProfilePage from "./pages/ProfilePage";
+import ProfileEditPage from "./pages/ProfileEditPage";
 import Navbar from "./components/NavBar";
 
 function App() {
@@ -21,7 +22,8 @@ function App() {
       <Route path="/posts/:id/edit" element={<EditPostPage />} />
       <Route path="/posts/:id" element={<PostDetailPage />} /> 
       <Route path="/profile" element={<ProfilePage />} />
-      
+      <Route path="/profile/edit" element={<ProfileEditPage />} />
+
     </Routes>
     </>
   );
