@@ -1,12 +1,10 @@
-import { useContext, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { AuthContext } from "./AuthContext";
 import axios from "axios";
 
 const API_URL = import.meta.env.VITE_API_URL;
 
-function UserSummaryCard() {
-  const { user } = useContext(AuthContext);
+function UserSummaryCard({ user, isOwner }) {
   const [postCount, setPostCount] = useState(0);
 
   useEffect(() => {
@@ -14,11 +12,11 @@ function UserSummaryCard() {
 
     if (user?._id && storedToken) {
       axios
-        .get(`${API_URL}/users/my-posts`, {
+        .get(`${API_URL}/users/${user._id}/posts`, {
           headers: { Authorization: `Bearer ${storedToken}` },
         })
         .then((res) => {
-          setPostCount(res.data.myPosts.length);
+          setPostCount(res.data.posts.length);
         })
         .catch((err) => {
           console.error("Error fetching post count:", err);
@@ -52,15 +50,17 @@ function UserSummaryCard() {
           </p>
         </div>
 
-        {/* 🔗 Edit profile link */}
-        <div className="mt-4">
-          <Link
-            to="/profile/edit"
-            className="text-sm text-blue-600 hover:underline"
-          >
-            Editar perfil
-          </Link>
-        </div>
+        {/* Only show Edit button if this is *your* profile */}
+        {isOwner && (
+          <div className="mt-4">
+            <Link
+              to="/profile/edit"
+              className="text-sm text-blue-600 hover:underline"
+            >
+              Editar perfil
+            </Link>
+          </div>
+        )}
       </div>
     </div>
   );

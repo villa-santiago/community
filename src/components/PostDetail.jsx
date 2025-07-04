@@ -1,5 +1,5 @@
 import { useContext, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { AuthContext } from "./AuthContext";
 
 function PostDetail({ post }) {
@@ -40,6 +40,11 @@ function PostDetail({ post }) {
     }
   };
 
+console.log("Logged-in user ID:", user?._id);
+console.log("Post owner ID:", post.owner?._id);
+console.log("Are they equal?:", user?._id === post.owner?._id);
+
+
   return (
     <div className="max-w-3xl mx-auto p-6 bg-white rounded-2xl shadow-sm border border-gray-200">
       <h1 className="text-3xl font-bold text-gray-800 mb-4">
@@ -48,9 +53,22 @@ function PostDetail({ post }) {
 
       <div className="text-sm text-gray-500 mb-4">
         Publicado por{" "}
-        <span className="font-semibold text-gray-800">
-          {post.owner?.userName || "Desconocido"}
-        </span>
+        {post.owner?._id ? (
+         <Link
+  to={
+    isLoggedIn && user?._id === post.owner?._id
+      ? "/profile"
+      : `/users/${post.owner._id}`
+  }
+  className="font-semibold text-blue-600 hover:underline"
+>
+  {post.owner.userName}
+</Link>
+        ) : (
+          <span className="font-semibold text-gray-800">
+            {post.owner?.userName || "Desconocido"}
+          </span>
+        )}
       </div>
 
       <p className="text-gray-700 text-lg mb-6">{post.description}</p>
