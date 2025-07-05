@@ -47,7 +47,7 @@ function PostList() {
   if (error) return <p>{error}</p>;
 
   return (
-    <div className="PostList space-y-4">
+    <div className="max-w-3xl mx-auto px-4 py-8">
       <h2 className="text-xl font-bold mb-4">Publicaciones recientes</h2>
       {allPosts.length === 0 ? (
         <p>No posts yet.</p>
@@ -59,12 +59,12 @@ function PostList() {
           return (
             <div
               key={post._id}
-              className="border p-4 rounded-lg shadow-sm bg-white flex flex-col relative"
+              className="border p-4 rounded-lg shadow-sm bg-white flex flex-col relative my-4"
             >
               <h3 className="text-lg font-semibold">{post.service}</h3>
               <p>{post.description}</p>
               <p className="text-sm text-gray-600">
-                Posted by: {post.owner?.userName || "Unknown"}
+                Publicado por: {post.owner?.userName || "Unknown"}
               </p>
 
               <Link

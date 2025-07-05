@@ -9,7 +9,7 @@ import PostDetailPage from "./pages/PostDetailPage";
 import ProfilePage from "./pages/ProfilePage";
 import ProfileEditPage from "./pages/ProfileEditPage";
 import Navbar from "./components/NavBar";
-import UserPublicProfilePage from "./pages/UserPublicProfilePage";
+import Footer from "./components/Footer";
 
 function App() {
   return (
@@ -26,6 +26,7 @@ function App() {
       <Route path="/profile/edit" element={<ProfileEditPage />} />
       <Route path="/users/:userId" element={<ProfilePage />} />
     </Routes>
+    <Footer/>
     </>
   );
 }
