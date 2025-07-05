@@ -2,7 +2,7 @@ import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../components/AuthContext";
 import { Link } from "react-router-dom";
 import axios from "axios";
-import { Bookmark, BookmarkCheck } from "lucide-react"; // icons
+import { Bookmark, BookmarkCheck } from "lucide-react";
 
 const API_URL = import.meta.env.VITE_API_URL;
 
@@ -46,47 +46,72 @@ function PostList() {
   if (isLoading) return <p>Loading posts...</p>;
   if (error) return <p>{error}</p>;
 
+  // 🟣 Helper: group posts by date string
+  const groupedPosts = allPosts.reduce((acc, post) => {
+    const date = new Date(post.createdAt).toLocaleDateString("es-ES", {
+      year: "numeric",
+      month: "long",
+      day: "numeric",
+    });
+    if (!acc[date]) acc[date] = [];
+    acc[date].push(post);
+    return acc;
+  }, {});
+
   return (
     <div className="max-w-3xl mx-auto px-4 py-8">
       <h2 className="text-xl font-bold mb-4">Publicaciones recientes</h2>
-      {allPosts.length === 0 ? (
+
+      {Object.keys(groupedPosts).length === 0 ? (
         <p>No posts yet.</p>
       ) : (
-        allPosts.map((post) => {
-          const isOwner = user?._id === post.owner?._id;
-          const isSaved = savedPostIds.includes(post._id);
+        Object.entries(groupedPosts).map(([date, posts]) => (
+          <div key={date}>
+            <h3 className="text-md font-semibold text-gray-600 mt-6 mb-2">
+              {date}
+            </h3>
 
-          return (
-            <div
-              key={post._id}
-              className="border p-4 rounded-lg shadow-sm bg-white flex flex-col relative my-4"
-            >
-              <h3 className="text-lg font-semibold">{post.service}</h3>
-              <p>{post.description}</p>
-              <p className="text-sm text-gray-600">
-                Publicado por: {post.owner?.userName || "Unknown"}
-              </p>
+            <div className="space-y-4">
+              {posts.map((post) => {
+                const isOwner = user?._id === post.owner?._id;
+                const isSaved = savedPostIds.includes(post._id);
 
-              <Link
-                to={`/posts/${post._id}`}
-                className="text-blue-500 hover:underline mt-2 inline-block"
-              >
-                View Details
-              </Link>
+                return (
+                  <div
+                    key={post._id}
+                    className="border p-4 rounded-lg shadow-sm bg-white flex flex-col relative"
+                  >
+                    <h3 className="text-lg font-semibold">{post.service}</h3>
+                    <p>{post.description}</p>
+                    <p className="text-sm text-gray-600">
+                      Posted by: {post.owner?.userName || "Unknown"}
+                    </p>
 
-              {/* Bookmark icon if not the owner */}
-              {!isOwner && isLoggedIn && (
-                <div className="absolute top-4 right-4" title={isSaved ? "Post saved" : "Not saved"}>
-                  {isSaved ? (
-                    <BookmarkCheck className="text-blue-500 w-5 h-5" />
-                  ) : (
-                    <Bookmark className="text-gray-300 w-5 h-5" />
-                  )}
-                </div>
-              )}
+                    <Link
+                      to={`/posts/${post._id}`}
+                      className="text-blue-500 hover:underline mt-2 inline-block"
+                    >
+                      View Details
+                    </Link>
+
+                    {!isOwner && isLoggedIn && (
+                      <div
+                        className="absolute top-4 right-4"
+                        title={isSaved ? "Post saved" : "Not saved"}
+                      >
+                        {isSaved ? (
+                          <BookmarkCheck className="text-blue-500 w-5 h-5" />
+                        ) : (
+                          <Bookmark className="text-gray-300 w-5 h-5" />
+                        )}
+                      </div>
+                    )}
+                  </div>
+                );
+              })}
             </div>
-          );
-        })
+          </div>
+        ))
       )}
     </div>
   );

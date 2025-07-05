@@ -21,7 +21,7 @@ function PostDetailPage() {
   if (!post) return <p className="text-center mt-10">No se ha encontrado este post</p>;
 
   return (
-    <div className="flex flex-col items-center justify-center px-4 py-8 min-h-screen bg-gray-50">
+    <div className="max-w-3xl mx-auto px-4 py-8">
       <button
         onClick={() => navigate("/")}
         className="mb-6 text-gray-500 hover:text-gray-800 text-sm"

@@ -17,7 +17,9 @@ function PostDetail({ post }) {
     if (!token) return;
 
     const method = isSaved ? "DELETE" : "POST";
-    const endpoint = `${import.meta.env.VITE_API_URL}/users/saved-posts/${post._id}`;
+    const endpoint = `${import.meta.env.VITE_API_URL}/users/saved-posts/${
+      post._id
+    }`;
 
     setIsSaving(true);
 
@@ -40,30 +42,27 @@ function PostDetail({ post }) {
     }
   };
 
-console.log("Logged-in user ID:", user?._id);
-console.log("Post owner ID:", post.owner?._id);
-console.log("Are they equal?:", user?._id === post.owner?._id);
-
+  console.log("Logged-in user ID:", user?._id);
+  console.log("Post owner ID:", post.owner?._id);
+  console.log("Are they equal?:", user?._id === post.owner?._id);
 
   return (
-    <div className="max-w-3xl mx-auto p-6 bg-white rounded-2xl shadow-sm border border-gray-200">
-      <h1 className="text-3xl font-bold text-gray-800 mb-4">
-        {post.service}
-      </h1>
+    <div className="border p-4 rounded-lg shadow-sm bg-white">
+      <h1 className="text-3xl font-bold text-gray-800 mb-4">{post.service}</h1>
 
       <div className="text-sm text-gray-500 mb-4">
         Publicado por{" "}
         {post.owner?._id ? (
-         <Link
-  to={
-    isLoggedIn && user?._id === post.owner?._id
-      ? "/profile"
-      : `/users/${post.owner._id}`
-  }
-  className="font-semibold text-blue-600 hover:underline"
->
-  {post.owner.userName}
-</Link>
+          <Link
+            to={
+              isLoggedIn && user?._id === post.owner?._id
+                ? "/profile"
+                : `/users/${post.owner._id}`
+            }
+            className="font-semibold text-blue-600 hover:underline"
+          >
+            {post.owner.userName}
+          </Link>
         ) : (
           <span className="font-semibold text-gray-800">
             {post.owner?.userName || "Desconocido"}
@@ -73,24 +72,27 @@ console.log("Are they equal?:", user?._id === post.owner?._id);
 
       <p className="text-gray-700 text-lg mb-6">{post.description}</p>
 
-      <hr className="my-6 border-gray-200" />
+      <hr className="my-4 border-gray-200" />
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-6">
+      <div className="">
         <p className="text-gray-600">
           <strong>Correo:</strong> {post.email || "No disponible"}
         </p>
+        <hr className="my-4 border-gray-200" /> 
         <p className="text-gray-600">
           <strong>Teléfono:</strong> {post.phone || "No disponible"}
         </p>
+        <hr className="my-4 border-gray-200" /> 
         <p className="text-gray-600">
           <strong>Ubicación:</strong> {post.location}
         </p>
+        <hr className="my-4 border-gray-200" /> 
         <p className="text-gray-600">
           <strong>Precio:</strong> €{post.price || "No indicado"}
         </p>
       </div>
 
-      <hr className="my-6 border-gray-200" />
+      <hr className="my-4 border-gray-200" />
 
       {isLoggedIn && (
         <div className="flex justify-between items-center mt-6">
@@ -115,10 +117,10 @@ console.log("Are they equal?:", user?._id === post.owner?._id);
             </button>
           )}
 
-          <p className="text-sm text-gray-400">
+          {/* <p className="text-sm text-gray-400">
             <span className="font-medium text-gray-500">Post ID:</span>{" "}
             {post._id}
-          </p>
+          </p> */}
         </div>
       )}
     </div>
