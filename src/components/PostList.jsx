@@ -48,7 +48,7 @@ function PostList() {
 
   return (
     <div className="PostList space-y-4">
-      <h2 className="text-xl font-bold mb-4">All Posts</h2>
+      <h2 className="text-xl font-bold mb-4">Publicaciones recientes</h2>
       {allPosts.length === 0 ? (
         <p>No posts yet.</p>
       ) : (

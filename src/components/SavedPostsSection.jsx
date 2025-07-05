@@ -1,16 +1,16 @@
-import { useContext, useEffect, useState } from "react";
-import { AuthContext } from "./AuthContext";
+import { useEffect, useState } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
 
 const API_URL = import.meta.env.VITE_API_URL;
 
-function SavedPostsSection() {
-  const { user } = useContext(AuthContext);
+function SavedPostsSection({ userId, isOwner }) {
   const [savedPosts, setSavedPosts] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
+    if (!isOwner) return; // Only fetch saved posts for the owner
+
     const storedToken = localStorage.getItem("authToken");
 
     axios
@@ -25,7 +25,15 @@ function SavedPostsSection() {
         console.error("Error fetching saved posts:", err);
         setIsLoading(false);
       });
-  }, []);
+  }, [userId, isOwner]);
+
+  if (!isOwner) {
+    return (
+      <p className="text-gray-500 italic">
+        Los posts guardados no son públicos.
+      </p>
+    );
+  }
 
   if (isLoading) return <p>Cargando posts guardados...</p>;
 

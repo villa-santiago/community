@@ -17,14 +17,14 @@ function Navbar() {
     <nav className="bg-white shadow-md border-b border-gray-200 p-4">
       <div className="max-w-6xl mx-auto flex justify-between items-center">
         <Link to="/" className="text-lg font-semibold text-blue-600">
-          CommunityApp
+          comm.unity
         </Link>
 
         <div className="flex space-x-4 items-center">
           {isLoggedIn ? (
             <>
               <Link to="/profile" className="text-gray-700 hover:text-blue-600">
-                Perfil de {user?.userName}
+                {user?.userName}
               </Link>
               <Link to="/create-post" className="text-gray-700 hover:text-blue-600">
                 Crear Post

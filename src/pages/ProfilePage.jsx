@@ -9,18 +9,20 @@ const API_URL = import.meta.env.VITE_API_URL;
 
 function ProfilePage() {
   const { user: loggedInUser, isLoggedIn } = useContext(AuthContext);
-  const { userId } = useParams(); // Optional param — present when viewing someone else's profile
+  const { userId } = useParams(); // if present, it's a public profile
 
   const [profileUser, setProfileUser] = useState(null);
   const [isOwner, setIsOwner] = useState(false);
 
   useEffect(() => {
-    // Don't attempt fetch until loggedInUser is available
+    // Wait until auth finishes loading
     if (!loggedInUser) return;
 
     const fetchUser = async () => {
-      if (!userId || String(userId) === String(loggedInUser._id)) {
-        // Viewing own profile (either /profile or /users/:ownId)
+      // ✅ Determine if viewing own profile
+      const isSelf = !userId || String(userId) === String(loggedInUser._id);
+
+      if (isSelf) {
         setProfileUser(loggedInUser);
         setIsOwner(true);
       } else {
@@ -29,16 +31,17 @@ function ProfilePage() {
           const res = await fetch(`${API_URL}/users/${userId}`, {
             headers: { Authorization: `Bearer ${token}` },
           });
+
           const data = await res.json();
 
           if (res.ok) {
             setProfileUser(data.user);
             setIsOwner(false);
           } else {
-            console.error("Error fetching public profile:", data.message);
+            console.error("❌ Error fetching public profile:", data.message);
           }
         } catch (err) {
-          console.error("Error fetching profile:", err);
+          console.error("❌ Error fetching profile:", err);
         }
       }
     };
@@ -54,28 +57,29 @@ function ProfilePage() {
     );
   }
 
-  console.log("🟦 Logged-in user ID:", loggedInUser?._id);
-console.log("🟨 Viewing profile of:", profileUser?._id);
-console.log("🟩 Is owner:", isOwner);
+return (
+  <div className="max-w-3xl mx-auto px-4 py-8">
+    <UserSummaryCard user={profileUser} isOwner={isOwner} />
 
-
-  return (
-    <div className="max-w-3xl mx-auto px-4 py-8">
-      <UserSummaryCard user={profileUser} isOwner={isOwner} />
-
-      <div className="mb-12">
-        <h2 className="text-xl font-semibold text-gray-700 mb-4">Mis Posts</h2>
-        <MyPostsSection userId={profileUser._id} />
-      </div>
-
-      <div>
-        <h2 className="text-xl font-semibold text-gray-700 mb-4">
-          Posts Guardados
-        </h2>
-        <SavedPostsSection userId={profileUser._id} isOwner={isOwner} />
-      </div>
+    <div className="mb-12">
+      <h2 className="text-xl font-semibold text-gray-700 mb-4">
+        {isOwner ? "Mis Posts" : `Posts de ${profileUser.userName}`}
+      </h2>
+      <MyPostsSection userId={profileUser._id} />
     </div>
-  );
+
+   {isOwner && (
+  <div>
+    <h2 className="text-xl font-semibold text-gray-700 mb-4">
+      Posts Guardados
+    </h2>
+    <SavedPostsSection userId={profileUser._id} isOwner={isOwner} />
+  </div>
+)}
+
+  </div>
+);
+
 }
 
 export default ProfilePage;

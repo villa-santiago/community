@@ -1,38 +1,38 @@
-import { useContext, useEffect, useState } from "react";
-import { AuthContext } from "./AuthContext";
+import { useEffect, useState } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
 
 const API_URL = import.meta.env.VITE_API_URL;
 
-function MyPostsSection() {
-  const { user } = useContext(AuthContext);
+function MyPostsSection({ userId }) {
   const [myPosts, setMyPosts] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
+    if (!userId) return;
+
     const storedToken = localStorage.getItem("authToken");
 
     axios
-      .get(`${API_URL}/users/my-posts`, {
+      .get(`${API_URL}/users/${userId}/posts`, {
         headers: { Authorization: `Bearer ${storedToken}` },
       })
       .then((res) => {
-        setMyPosts(res.data.myPosts);
+        setMyPosts(res.data.posts);
         setIsLoading(false);
       })
       .catch((err) => {
         console.error("Error fetching user's posts:", err);
         setIsLoading(false);
       });
-  }, []);
+  }, [userId]);
 
   if (isLoading) return <p>Cargando posts...</p>;
 
   return (
     <div className="space-y-4">
       {myPosts.length === 0 ? (
-        <p>No has publicado ningún post todavía.</p>
+        <p>Este usuario no ha publicado ningún post todavía.</p>
       ) : (
         myPosts.map((post) => (
           <div
