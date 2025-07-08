@@ -25,7 +25,8 @@ function EditPostPage() {
           return navigate("/");
         }
 
-        setFormData(data);
+        // ✅ Add id field to allow correct Cancel navigation
+        setFormData({ ...data, id: data._id });
         setLoading(false);
       } catch (error) {
         console.error("Error loading post:", error);

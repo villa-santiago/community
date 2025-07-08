@@ -80,7 +80,7 @@ function SignupPage() {
 
           <button
             type="submit"
-            className="w-full bg-gray-800 text-white py-2 rounded hover:bg-gray-900"
+            className="w-full bg-gray-800 text-white py-2 rounded-full hover:bg-gray-900"
           >
             Crear cuenta
           </button>

@@ -98,7 +98,7 @@ function PostDetail({ post }) {
         <div className="flex justify-between items-center mt-6">
           {isOwner ? (
             <button
-              className="text-blue-600 hover:underline transition"
+              className="border border-gray-800 text-gray-800 px-4 py-2 rounded-full hover:bg-gray-800 hover:text-white"
               onClick={() => navigate(`/posts/${post._id}/edit`)}
             >
               Editar Post
@@ -109,18 +109,14 @@ function PostDetail({ post }) {
               disabled={isSaving}
               className={`${
                 isSaved
-                  ? "text-green-600 hover:text-green-800"
-                  : "text-gray-500 hover:text-black"
+                  ? "border border-red-600 text-red-600 px-4 py-2 rounded-full hover:bg-red-600 hover:text-white"
+                  : "border border-green-600 text-green-600 px-4 py-2 rounded-full hover:bg-green-600 hover:text-white"
               } transition`}
             >
               {isSaved ? "Remove from saved posts" : "Guardar"}
             </button>
           )}
 
-          {/* <p className="text-sm text-gray-400">
-            <span className="font-medium text-gray-500">Post ID:</span>{" "}
-            {post._id}
-          </p> */}
         </div>
       )}
     </div>

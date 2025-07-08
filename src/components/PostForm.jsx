@@ -1,4 +1,4 @@
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 
 function PostForm({
   formData,
@@ -138,19 +138,24 @@ function PostForm({
             {isEditing ? "Guardar cambios" : "Publicar post"}
           </button>
 
-          <button
-            type="button"
-            onClick={() => {
-              if (isEditing) {
-                navigate(`/posts/${formData.id}`);
-              } else {
-                navigate("/");
-              }
-            }}
-            className="border border-red-600 text-red-600 px-4 py-2 rounded-full hover:bg-red-600 hover:text-white"
-          >
-            Cancelar
-          </button>
+          {isEditing ? (
+            <Link to={`/posts/${formData.id}`}>
+              <button
+                type="button"
+                className="border border-red-600 text-red-600 px-4 py-2 rounded-full hover:bg-red-600 hover:text-white"
+              >
+                Cancelar
+              </button>
+            </Link>
+          ) : (
+            <button
+              type="button"
+              onClick={() => navigate("/")}
+              className="border border-red-600 text-red-600 px-4 py-2 rounded-full hover:bg-red-600 hover:text-white"
+            >
+              Cancelar
+            </button>
+          )}
         </div>
 
         {isEditing && onDelete && (

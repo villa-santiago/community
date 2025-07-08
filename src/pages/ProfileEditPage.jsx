@@ -166,20 +166,22 @@ function ProfileEditPage() {
 
           {error && <p className="text-red-600">{error}</p>}
 
-          <div className="flex justify-end space-x-4">
-            <button
-              type="button"
-              onClick={() => navigate("/profile")}
-              className="px-4 py-2 border rounded"
-            >
-              Cancelar
-            </button>
-            <button
+          <div className="flex justify-start space-x-4">
+          <button
               type="submit"
-              className="px-4 py-2 bg-blue-600 text-white rounded"
+              className="border border-gray-800 text-gray-800 px-4 py-2 rounded-full hover:bg-gray-800 hover:text-white"
             >
               Guardar cambios
             </button>
+
+            <button
+              type="button"
+              onClick={() => navigate("/profile")}
+              className="border border-red-600 text-red-600 px-4 py-2 rounded-full hover:bg-red-600 hover:text-white"
+            >
+              Cancelar
+            </button>
+            
           </div>
         </form>
       </div>
@@ -221,7 +223,7 @@ function ProfileEditPage() {
           )}
           <button
             type="submit"
-            className="px-4 py-2 bg-yellow-600 text-white rounded"
+            className="border border-gray-800 text-gray-800 px-4 py-2 rounded-full hover:bg-gray-800 hover:text-white"
           >
             Actualizar contraseña
           </button>
@@ -230,7 +232,7 @@ function ProfileEditPage() {
 
       {/* Delete Account Section */}
       <div className="mt-12 border-t pt-6">
-        <h2 className="text-lg font-semibold text-red-600 mb-2">
+        <h2 className="text-lg font-semibold mb-2">
           Eliminar cuenta
         </h2>
         <p className="text-sm text-gray-600 mb-4">
@@ -249,7 +251,7 @@ function ProfileEditPage() {
         )}
         <button
           onClick={handleDeleteAccount}
-          className="px-4 py-2 text-white bg-red-600 rounded hover:bg-red-700"
+          className="border border-red-600 text-red-600 px-4 py-2 rounded-full hover:bg-red-600 hover:text-white"
         >
           Eliminar cuenta
         </button>

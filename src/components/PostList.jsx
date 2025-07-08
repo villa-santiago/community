@@ -82,16 +82,15 @@ function PostList() {
                     className="border p-4 rounded-lg shadow-sm bg-white flex flex-col relative"
                   >
                     <h3 className="text-lg font-semibold">{post.service}</h3>
+                    <p className="text-sm text-gray-600 mb-2">Publicado por: {post.owner?.userName || "Unknown"}</p>
                     <p>{post.description}</p>
-                    <p className="text-sm text-gray-600">
-                      Posted by: {post.owner?.userName || "Unknown"}
-                    </p>
+                    
 
                     <Link
                       to={`/posts/${post._id}`}
                       className="text-blue-500 hover:underline mt-2 inline-block"
                     >
-                      View Details
+                      Ver más
                     </Link>
 
                     {!isOwner && isLoggedIn && (

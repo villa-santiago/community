@@ -10,7 +10,7 @@ function Navbar() {
   const handleLogout = () => {
     logOutUser();
     navigate("/");
-    setMenuOpen(false); // close menu on logout
+    setMenuOpen(false);
   };
 
   const toggleMenu = () => {
@@ -20,10 +20,64 @@ function Navbar() {
   return (
     <nav className="bg-white shadow-md border-b border-gray-200 p-4">
       <div className="max-w-6xl mx-auto flex justify-between items-center">
-        {/* Logo */}
-        <Link to="/" className="text-lg font-semibold text-blue-600">
-          comm.unity
-        </Link>
+        {/* Left side (Logo + Nav Links) */}
+        <div className="flex items-center gap-4">
+          <Link to="/" className="text-lg font-semibold text-blue-600">
+            comm.unity
+          </Link>
+
+          {isLoggedIn && (
+            <div className="hidden md:flex gap-2">
+              <Link
+                to="/"
+                className="px-4 py-1 rounded-full text-sm bg-gray-100 hover:bg-gray-200 transition"
+              >
+                Anuncios
+              </Link>
+              <Link
+                to="/create-post"
+                className="px-4 py-1 rounded-full text-sm bg-gray-100 hover:bg-gray-200 transition"
+              >
+                Crear Post
+              </Link>
+            </div>
+          )}
+        </div>
+
+        {/* Right side (User + Auth Links) */}
+        <div className="hidden md:flex items-center gap-4">
+          {isLoggedIn ? (
+            <>
+              <Link
+                to="/profile"
+                className="text-gray-700 hover:underline text-sm"
+              >
+                {user?.userName}
+              </Link>
+              <button
+                onClick={handleLogout}
+                className="px-4 py-1 rounded-full text-sm text-gray-700 border border-gray-300 hover:bg-red-100 transition"
+              >
+                Cerrar sesión
+              </button>
+            </>
+          ) : (
+            <>
+              <Link
+                to="/signup"
+                className="px-4 py-1 rounded-full text-sm bg-gray-100 hover:bg-gray-200 transition"
+              >
+                Sign Up
+              </Link>
+              <Link
+                to="/login"
+                className="px-4 py-1 rounded-full text-sm bg-gray-100 hover:bg-gray-200 transition"
+              >
+                Login
+              </Link>
+            </>
+          )}
+        </div>
 
         {/* Hamburger button */}
         <button
@@ -54,41 +108,9 @@ function Navbar() {
             )}
           </svg>
         </button>
-
-        {/* Navigation Links */}
-        <div className="hidden md:flex space-x-4 items-center">
-          {isLoggedIn ? (
-            <>
-              <Link to="/" className="text-gray-700 hover:text-blue-600">
-                Anuncios
-              </Link>
-              <Link to="/profile" className="text-gray-700 hover:text-blue-600">
-                {user?.userName}
-              </Link>
-              <Link to="/create-post" className="text-gray-700 hover:text-blue-600">
-                Crear Post
-              </Link>
-              <button
-                onClick={handleLogout}
-                className="text-gray-500 hover:text-red-600 transition"
-              >
-                Cerrar sesión
-              </button>
-            </>
-          ) : (
-            <>
-              <Link to="/signup" className="text-gray-700 hover:text-blue-600">
-                Sign Up
-              </Link>
-              <Link to="/login" className="text-gray-700 hover:text-blue-600">
-                Login
-              </Link>
-            </>
-          )}
-        </div>
       </div>
 
-      {/* Mobile Menu (shown when menuOpen === true) */}
+      {/* Mobile Menu */}
       {menuOpen && (
         <div className="md:hidden mt-4 space-y-2">
           {isLoggedIn ? (
@@ -101,18 +123,18 @@ function Navbar() {
                 Anuncios
               </Link>
               <Link
-                to="/profile"
-                onClick={() => setMenuOpen(false)}
-                className="block text-gray-700 hover:text-blue-600"
-              >
-                {user?.userName}
-              </Link>
-              <Link
                 to="/create-post"
                 onClick={() => setMenuOpen(false)}
                 className="block text-gray-700 hover:text-blue-600"
               >
                 Crear Post
+              </Link>
+              <Link
+                to="/profile"
+                onClick={() => setMenuOpen(false)}
+                className="block text-gray-700 hover:text-blue-600"
+              >
+                {user?.userName}
               </Link>
               <button
                 onClick={handleLogout}
