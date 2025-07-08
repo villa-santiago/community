@@ -56,7 +56,7 @@ function Navbar() {
               </Link>
               <button
                 onClick={handleLogout}
-                className="px-4 py-1 rounded-full text-sm text-gray-700 border border-gray-300 hover:bg-red-100 transition"
+                className="px-4 py-1 rounded-full text-sm text-gray-700 border border-gray-300 hover:bg-gray-200 transition"
               >
                 Cerrar sesión
               </button>
@@ -138,7 +138,7 @@ function Navbar() {
               </Link>
               <button
                 onClick={handleLogout}
-                className="block text-gray-500 hover:text-red-600 transition"
+                className="block text-gray-500 hover:text-blue-600 transition"
               >
                 Cerrar sesión
               </button>
