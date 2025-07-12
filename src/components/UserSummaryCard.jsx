@@ -50,7 +50,7 @@ function UserSummaryCard({ user, isOwner }) {
           </p>
         </div>
 
-        {/* Only show Edit button if this is *your* profile */}
+        
         {isOwner && (
           <div className="mt-4">
             <Link

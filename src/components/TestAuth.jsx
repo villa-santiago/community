@@ -1,4 +1,3 @@
-// src/components/TestAuth.jsx
 import { useContext } from "react";
 import { AuthContext } from "../components/AuthContext";
 
@@ -10,7 +9,7 @@ function TestAuth() {
   return (
     <div className="p-4 border border-gray-300 rounded-lg mt-4">
       <h2 className="text-lg font-bold mb-2">Auth Context Test</h2>
-      <p><strong>Is Logged In:</strong> {isLoggedIn ? "✅ Yes" : "❌ No"}</p>
+      <p><strong>Is Logged In:</strong> {isLoggedIn ? "Yes" : "No"}</p>
       <p><strong>User:</strong> {user ? JSON.stringify(user, null, 2) : "null"}</p>
 
       {isLoggedIn && (

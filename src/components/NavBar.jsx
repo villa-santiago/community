@@ -20,7 +20,7 @@ function Navbar() {
   return (
     <nav className="bg-white shadow-md border-b border-gray-200 p-4">
       <div className="max-w-6xl mx-auto flex justify-between items-center">
-        {/* Left side (Logo + Nav Links) */}
+        
         <div className="flex items-center gap-4">
           <Link to="/" className="text-lg font-semibold text-blue-600">
             comm.unity
@@ -44,7 +44,7 @@ function Navbar() {
           )}
         </div>
 
-        {/* Right side (User + Auth Links) */}
+        
         <div className="hidden md:flex items-center gap-4">
           {isLoggedIn ? (
             <>
@@ -79,7 +79,7 @@ function Navbar() {
           )}
         </div>
 
-        {/* Hamburger button */}
+       
         <button
           onClick={toggleMenu}
           className="md:hidden text-gray-700 focus:outline-none"
@@ -110,7 +110,7 @@ function Navbar() {
         </button>
       </div>
 
-      {/* Mobile Menu */}
+     
       {menuOpen && (
         <div className="md:hidden mt-4 space-y-2">
           {isLoggedIn ? (

@@ -1,4 +1,3 @@
-// src/pages/EditPostPage.jsx
 import { useEffect, useState, useContext } from "react";
 import { useNavigate, useParams, Link } from "react-router-dom";
 import { AuthContext } from "../components/AuthContext";
@@ -19,13 +18,13 @@ function EditPostPage() {
         if (!response.ok) throw new Error("Post not found");
         const data = await response.json();
 
-        // Optional: restrict edit access if user is not owner
+        
         if (data.owner?._id !== user?._id) {
           alert("No tienes permiso para editar este post.");
           return navigate("/");
         }
 
-        // ✅ Add id field to allow correct Cancel navigation
+        
         setFormData({ ...data, id: data._id });
         setLoading(false);
       } catch (error) {

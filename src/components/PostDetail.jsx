@@ -33,7 +33,7 @@ function PostDetail({ post }) {
 
       if (!res.ok) throw new Error("Failed to update saved post");
 
-      await authenticateUser(); // Refresh context
+      await authenticateUser(); 
     } catch (err) {
       console.error("Save toggle failed:", err);
       alert("Error al guardar o eliminar el post");
@@ -42,9 +42,6 @@ function PostDetail({ post }) {
     }
   };
 
-  console.log("Logged-in user ID:", user?._id);
-  console.log("Post owner ID:", post.owner?._id);
-  console.log("Are they equal?:", user?._id === post.owner?._id);
 
   return (
     <div className="border p-4 rounded-lg shadow-sm bg-white">

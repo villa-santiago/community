@@ -46,7 +46,7 @@ function PostList() {
   if (isLoading) return <p>Loading posts...</p>;
   if (error) return <p>{error}</p>;
 
-  // 🟣 Helper: group posts by date string
+  
   const groupedPosts = allPosts.reduce((acc, post) => {
     const date = new Date(post.createdAt).toLocaleDateString("es-ES", {
       year: "numeric",

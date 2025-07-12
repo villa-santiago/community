@@ -15,11 +15,11 @@ function ProfilePage() {
   const [isOwner, setIsOwner] = useState(false);
 
   useEffect(() => {
-    // Wait until auth finishes loading
+   
     if (!loggedInUser) return;
 
     const fetchUser = async () => {
-      // ✅ Determine if viewing own profile
+      
       const isSelf = !userId || String(userId) === String(loggedInUser._id);
 
       if (isSelf) {
@@ -38,10 +38,10 @@ function ProfilePage() {
             setProfileUser(data.user);
             setIsOwner(false);
           } else {
-            console.error("❌ Error fetching public profile:", data.message);
+            console.error("Error fetching public profile:", data.message);
           }
         } catch (err) {
-          console.error("❌ Error fetching profile:", err);
+          console.error("Error fetching profile:", err);
         }
       }
     };

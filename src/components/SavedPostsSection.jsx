@@ -9,7 +9,7 @@ function SavedPostsSection({ userId, isOwner }) {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    if (!isOwner) return; // Only fetch saved posts for the owner
+    if (!isOwner) return; 
 
     const storedToken = localStorage.getItem("authToken");
 

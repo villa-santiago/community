@@ -23,19 +23,19 @@ function ProfileEditPage() {
 
   const [deleteMessage, setDeleteMessage] = useState("");
 
-  // Handle profile edit inputs
+  
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
-  // Handle password input changes
+  
   const handlePasswordChange = (e) => {
     const { name, value } = e.target;
     setPasswordData((prev) => ({ ...prev, [name]: value }));
   };
 
-  // Submit profile edits
+  
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError("");
@@ -57,7 +57,7 @@ function ProfileEditPage() {
       }
 
       await res.json();
-      authenticateUser(); // Refresh context
+      authenticateUser(); 
       navigate("/profile");
     } catch (err) {
       console.error("Profile update error:", err);
@@ -65,7 +65,7 @@ function ProfileEditPage() {
     }
   };
 
-  // Submit password update
+  
   const handlePasswordSubmit = async (e) => {
     e.preventDefault();
     setPasswordMessage("");
@@ -91,11 +91,11 @@ function ProfileEditPage() {
       setPasswordData({ currentPassword: "", newPassword: "" });
     } catch (err) {
       console.error("Password update error:", err);
-      setPasswordMessage(`❌ ${err.message}`);
+      setPasswordMessage(` ${err.message}`);
     }
   };
 
-  // Handle account deletion
+  
   const handleDeleteAccount = async () => {
     const confirmDelete = window.confirm(
       "¿Estás seguro de que deseas eliminar tu cuenta? Esta acción no se puede deshacer."
@@ -116,20 +116,20 @@ function ProfileEditPage() {
         throw new Error(err.message || "Account deletion failed");
       }
 
-      setDeleteMessage("✅ Cuenta eliminada correctamente.");
+      setDeleteMessage("Cuenta eliminada correctamente.");
       setTimeout(() => {
         logOutUser();
         navigate("/signup");
       }, 2000);
     } catch (err) {
       console.error("Error deleting account:", err);
-      setDeleteMessage(`❌ ${err.message}`);
+      setDeleteMessage(` ${err.message}`);
     }
   };
 
   return (
     <div className="max-w-md mx-auto p-6 space-y-10 bg-white rounded shadow">
-      {/* Profile Edit Form */}
+      
       <div>
         <h1 className="text-2xl font-semibold mb-4">Editar perfil</h1>
         <form className="space-y-4" onSubmit={handleSubmit}>
@@ -186,7 +186,7 @@ function ProfileEditPage() {
         </form>
       </div>
 
-      {/* Password Update Form */}
+      
       <div>
         <h2 className="text-lg font-semibold mb-4">Cambiar contraseña</h2>
         <form className="space-y-4" onSubmit={handlePasswordSubmit}>
@@ -230,7 +230,7 @@ function ProfileEditPage() {
         </form>
       </div>
 
-      {/* Delete Account Section */}
+      
       <div className="mt-12 border-t pt-6">
         <h2 className="text-lg font-semibold mb-2">
           Eliminar cuenta
