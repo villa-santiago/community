@@ -1,12 +1,22 @@
-# React + Vite
+# comm.unity — Frontend
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+**comm.unity** is a community-driven platform for sharing services, products, events, and helpful information. This is a React application built using [Vite](https://vitejs.dev/) and styled with [Tailwind CSS](https://tailwindcss.com/).
 
-Currently, two official plugins are available:
+Overview
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+The application allows users to:
 
-## Expanding the ESLint configuration
+- View community posts for relevant information
+- Create, edit, and delete their own posts
+- Save and unsave posts for future reference
+- View public user profiles
+- Edit their own profile (bio, location, profile image)
+- Log in, sign up, and authenticate with JWT
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+---
+
+## Tech Stack
+
+- [React](https://react.dev/)
+- [Vite](https://vitejs.dev/)
+- [Tailwind CSS](https://tailwindcss.com/)
